@@ -1,0 +1,609 @@
+/* =========================================================
+   APPROACH PAGE
+========================================================= */
+
+.approach-page {
+  width: 100%;
+  overflow: hidden;
+
+  background: #f0eeeb;
+  color: #3f3a36;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.approach-hero {
+  min-height: 72vh;
+
+  padding: 130px 7vw 110px;
+
+  display: flex;
+  align-items: center;
+
+  background: #f0eeeb;
+
+  border-bottom: 1px solid rgba(63, 58, 54, 0.12);
+}
+
+
+.approach-hero-content {
+  width: 100%;
+  max-width: 900px;
+}
+
+
+.approach-eyebrow {
+  display: block;
+
+  margin-bottom: 28px;
+
+  color: #8d857d;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: 0.2em;
+
+  text-transform: uppercase;
+}
+
+
+.approach-hero h1 {
+  max-width: 850px;
+
+  margin: 0;
+
+  color: #3f3a36;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: clamp(55px, 7vw, 95px);
+
+  font-weight: 400;
+
+  line-height: 0.98;
+
+  letter-spacing: -0.045em;
+}
+
+
+.approach-hero h1 em {
+  color: #7b746e;
+
+  font-weight: 400;
+}
+
+
+.approach-hero p {
+  max-width: 520px;
+
+  margin-top: 38px;
+
+  color: #6e6863;
+
+  font-size: 13px;
+
+  line-height: 1.9;
+}
+
+
+/* =========================================================
+   PHILOSOPHY
+========================================================= */
+
+.approach-philosophy {
+  padding: 120px 7vw;
+
+  background: #d9d4cf;
+}
+
+
+.approach-section-label {
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+
+  margin-bottom: 50px;
+}
+
+
+.approach-section-label span {
+  color: #ada295;
+
+  font-size: 10px;
+
+  letter-spacing: 0.12em;
+}
+
+
+.approach-section-label p {
+  margin: 0;
+
+  color: #6e6863;
+
+  font-size: 9px;
+
+  letter-spacing: 0.18em;
+
+  text-transform: uppercase;
+}
+
+
+.approach-philosophy-content {
+  max-width: 1050px;
+
+  margin: 0 auto;
+}
+
+
+.approach-philosophy-content h2 {
+  max-width: 850px;
+
+  margin: 0;
+
+  color: #3f3a36;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: clamp(42px, 5vw, 70px);
+
+  font-weight: 400;
+
+  line-height: 1;
+
+  letter-spacing: -0.04em;
+}
+
+
+.approach-philosophy-text {
+  max-width: 580px;
+
+  margin-top: 55px;
+
+  margin-left: auto;
+}
+
+
+.approach-philosophy-text p {
+  margin: 0 0 20px;
+
+  color: #625c57;
+
+  font-size: 13px;
+
+  line-height: 1.9;
+}
+
+
+.approach-philosophy-text p:last-child {
+  margin-bottom: 0;
+}
+
+
+/* =========================================================
+   PRINCIPLES
+========================================================= */
+
+.approach-principles {
+  padding: 120px 7vw;
+
+  background: #c3bbb2;
+}
+
+
+.approach-section-heading {
+  max-width: 900px;
+
+  margin-bottom: 70px;
+}
+
+
+.approach-section-heading h2 {
+  margin: 0;
+
+  color: #3f3a36;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: clamp(44px, 5.5vw, 72px);
+
+  font-weight: 400;
+
+  line-height: 1;
+
+  letter-spacing: -0.04em;
+}
+
+
+.approach-section-heading h2 em {
+  color: #6e6863;
+
+  font-weight: 400;
+}
+
+
+/* =========================================================
+   PRINCIPLE CARDS
+========================================================= */
+
+.approach-principles-grid {
+  max-width: 1200px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  border-top: 1px solid rgba(63, 58, 54, 0.22);
+  border-left: 1px solid rgba(63, 58, 54, 0.22);
+}
+
+
+.approach-principle {
+  min-height: 320px;
+
+  padding: 32px;
+
+  border-right: 1px solid rgba(63, 58, 54, 0.22);
+  border-bottom: 1px solid rgba(63, 58, 54, 0.22);
+
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+
+.approach-principle:hover {
+  background: rgba(240, 238, 235, 0.18);
+
+  transform: translateY(-4px);
+}
+
+
+.approach-principle span {
+  color: #8d857d;
+
+  font-size: 10px;
+
+  letter-spacing: 0.12em;
+}
+
+
+.approach-principle h3 {
+  margin: 80px 0 0;
+
+  color: #3f3a36;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 38px;
+
+  font-weight: 400;
+
+  line-height: 1;
+}
+
+
+.approach-principle p {
+  max-width: 280px;
+
+  margin-top: 18px;
+
+  color: #5f5954;
+
+  font-size: 12px;
+
+  line-height: 1.85;
+}
+
+
+/* =========================================================
+   CLOSING
+========================================================= */
+
+.approach-closing {
+  padding: 130px 7vw;
+
+  background: #d9d4cf;
+
+  color: #3f3a36;
+
+  text-align: center;
+}
+
+
+.approach-closing > div {
+  max-width: 900px;
+
+  margin: 0 auto;
+}
+
+
+.approach-closing .approach-eyebrow {
+  color: #8d857d;
+}
+
+
+.approach-closing h2 {
+  margin: 0;
+
+  color: #3f3a36;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: clamp(48px, 6vw, 82px);
+
+  font-weight: 400;
+
+  line-height: 0.98;
+
+  letter-spacing: -0.045em;
+}
+
+
+.approach-closing h2 em {
+  color: #6e6863;
+
+  font-weight: 400;
+}
+
+
+.approach-button {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  margin-top: 45px;
+
+  padding-bottom: 8px;
+
+  border-bottom: 1px solid #8d857d;
+
+  color: #3f3a36;
+
+  font-size: 12px;
+
+  text-decoration: none;
+
+  transition:
+    gap 0.25s ease,
+    color 0.25s ease;
+}
+
+
+.approach-button:hover {
+  gap: 20px;
+
+  color: #6e6863;
+}
+
+
+.approach-button span {
+  font-size: 16px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .approach-hero {
+    min-height: 65vh;
+
+    padding: 110px 7vw 90px;
+  }
+
+
+  .approach-philosophy {
+    padding: 100px 7vw;
+  }
+
+
+  .approach-principles {
+    padding: 100px 7vw;
+  }
+
+
+  .approach-principles-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .approach-principle {
+    min-height: 250px;
+  }
+
+
+  .approach-principle h3 {
+    margin-top: 55px;
+  }
+
+
+  .approach-closing {
+    padding: 110px 7vw;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .approach-hero {
+    min-height: 68vh;
+
+    padding: 90px 5vw 70px;
+
+    align-items: center;
+  }
+
+
+  .approach-eyebrow {
+    margin-bottom: 20px;
+
+    font-size: 9px;
+
+    letter-spacing: 0.17em;
+  }
+
+
+  .approach-hero h1 {
+    font-size: 48px;
+
+    line-height: 0.98;
+  }
+
+
+  .approach-hero p {
+    max-width: 330px;
+
+    margin-top: 30px;
+
+    font-size: 12px;
+
+    line-height: 1.8;
+  }
+
+
+  .approach-philosophy {
+    padding: 80px 5vw;
+  }
+
+
+  .approach-section-label {
+    margin-bottom: 35px;
+  }
+
+
+  .approach-philosophy-content h2 {
+    font-size: 39px;
+
+    line-height: 1;
+  }
+
+
+  .approach-philosophy-text {
+    margin-top: 35px;
+  }
+
+
+  .approach-philosophy-text p {
+    font-size: 12px;
+
+    line-height: 1.8;
+  }
+
+
+  .approach-principles {
+    padding: 80px 5vw;
+  }
+
+
+  .approach-section-heading {
+    margin-bottom: 50px;
+  }
+
+
+  .approach-section-heading h2 {
+    font-size: 42px;
+
+    line-height: 1;
+  }
+
+
+  .approach-principles-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .approach-principle {
+    min-height: auto;
+
+    padding: 28px 22px 35px;
+  }
+
+
+  .approach-principle h3 {
+    margin-top: 45px;
+
+    font-size: 32px;
+  }
+
+
+  .approach-principle p {
+    max-width: 100%;
+
+    font-size: 12px;
+
+    line-height: 1.8;
+  }
+
+
+  .approach-principle:hover {
+    transform: none;
+  }
+
+
+  .approach-closing {
+    padding: 90px 5vw;
+  }
+
+
+  .approach-closing h2 {
+    font-size: 45px;
+
+    line-height: 0.98;
+  }
+
+
+  .approach-button {
+    margin-top: 35px;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 380px) {
+
+  .approach-hero h1 {
+    font-size: 42px;
+  }
+
+
+  .approach-philosophy-content h2 {
+    font-size: 35px;
+  }
+
+
+  .approach-section-heading h2 {
+    font-size: 37px;
+  }
+
+
+  .approach-principle h3 {
+    font-size: 29px;
+  }
+
+
+  .approach-closing h2 {
+    font-size: 39px;
+  }
+
+}

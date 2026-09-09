@@ -1,0 +1,384 @@
+.hero {
+  min-height: calc(100vh - 84px);
+
+  padding: 70px 7vw;
+
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+
+  align-items: center;
+
+  gap: 8vw;
+
+  background: #f0eeeb;
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.hero-content {
+  max-width: 690px;
+}
+
+.hero-eyebrow {
+  display: block;
+
+  margin-bottom: 25px;
+
+  color: #6e6863;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: 0.2em;
+}
+
+
+/* =========================
+   TITLE
+========================= */
+
+.hero h1 {
+  margin: 0;
+
+  color: #3f3a36;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: clamp(55px, 6.3vw, 88px);
+
+  font-weight: 400;
+
+  line-height: 0.98;
+
+  letter-spacing: -0.045em;
+}
+
+.hero h1 em {
+  color: #6e6863;
+
+  font-weight: 400;
+}
+
+
+/* =========================
+   DESCRIPTION
+========================= */
+
+.hero-description {
+  max-width: 500px;
+
+  margin-top: 32px;
+
+  color: #6e6863;
+
+  font-size: 15px;
+
+  line-height: 1.85;
+}
+
+
+/* =========================
+   ACTIONS
+========================= */
+
+.hero-actions {
+  margin-top: 38px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 28px;
+}
+
+
+/* PRIMARY */
+
+.hero-primary-button {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 22px;
+
+  padding: 15px 20px;
+
+  background: #5f5954;
+
+  color: #f0eeeb;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+
+  text-decoration: none;
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.hero-primary-button span {
+  font-size: 17px;
+}
+
+.hero-primary-button:hover {
+  background: #3f3a36;
+
+  transform: translateY(-2px);
+}
+
+
+/* SECONDARY */
+
+.hero-secondary-link {
+  padding-bottom: 5px;
+
+  color: #5f5954;
+
+  border-bottom: 1px solid #ada295;
+
+  font-size: 12px;
+
+  text-decoration: none;
+
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.hero-secondary-link:hover {
+  color: #3f3a36;
+
+  border-color: #5f5954;
+}
+
+
+/* =========================
+   PHOTO
+========================= */
+
+.hero-visual {
+  position: relative;
+
+  width: 100%;
+}
+
+.hero-photo {
+  position: relative;
+
+  width: 100%;
+
+  min-height: 650px;
+
+  overflow: hidden;
+
+  background: #d9d4cf;
+}
+
+.hero-photo img {
+  width: 100%;
+  height: 100%;
+
+  min-height: 650px;
+
+  display: block;
+
+  object-fit: cover;
+
+  object-position: center;
+
+  filter: saturate(0.75);
+}
+
+
+/* =========================
+   QUOTE
+========================= */
+
+.hero-quote {
+  position: absolute;
+
+  left: -45px;
+
+  bottom: 45px;
+
+  width: 185px;
+
+  padding: 22px;
+
+  background: #f0eeeb;
+
+  border: 1px solid rgba(63, 58, 54, 0.08);
+}
+
+.hero-quote span {
+  color: #ada295;
+
+  font-size: 9px;
+
+  letter-spacing: 0.15em;
+}
+
+.hero-quote p {
+  margin-top: 12px;
+
+  color: #3f3a36;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 18px;
+
+  line-height: 1.3;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 900px) {
+
+  .hero {
+    min-height: auto;
+
+    grid-template-columns: 1fr;
+
+    padding: 80px 7vw;
+
+    gap: 60px;
+  }
+
+  .hero-content {
+    max-width: 700px;
+  }
+
+  .hero-photo {
+    min-height: 560px;
+  }
+
+  .hero-photo img {
+    min-height: 560px;
+  }
+
+  .hero-quote {
+    left: 25px;
+
+    bottom: 30px;
+  }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+  .hero {
+    padding: 65px 5vw;
+
+    gap: 45px;
+  }
+
+  .hero-eyebrow {
+    margin-bottom: 20px;
+
+    font-size: 8px;
+
+    letter-spacing: 0.15em;
+  }
+
+  .hero h1 {
+    font-size: clamp(43px, 12.5vw, 58px);
+
+    line-height: 1;
+  }
+
+  .hero-description {
+    margin-top: 25px;
+
+    font-size: 13px;
+
+    line-height: 1.75;
+  }
+
+  .hero-actions {
+    margin-top: 30px;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 20px;
+  }
+
+  .hero-primary-button {
+    min-height: 46px;
+  }
+
+  .hero-photo {
+    min-height: 470px;
+  }
+
+  .hero-photo img {
+    min-height: 470px;
+  }
+
+  .hero-quote {
+    left: 12px;
+
+    bottom: 15px;
+
+    width: 165px;
+
+    padding: 18px;
+  }
+
+  .hero-quote p {
+    font-size: 16px;
+  }
+}
+
+
+/* =========================
+   SMALL PHONES
+========================= */
+
+@media (max-width: 380px) {
+
+  .hero {
+    padding: 55px 4vw;
+
+    gap: 38px;
+  }
+
+  .hero h1 {
+    font-size: 41px;
+  }
+
+  .hero-description {
+    font-size: 12px;
+  }
+
+  .hero-photo {
+    min-height: 400px;
+  }
+
+  .hero-photo img {
+    min-height: 400px;
+  }
+
+  .hero-quote {
+    width: 150px;
+
+    padding: 15px;
+  }
+
+  .hero-quote p {
+    font-size: 15px;
+  }
+}

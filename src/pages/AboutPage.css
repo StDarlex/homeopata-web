@@ -1,0 +1,465 @@
+.about-page {
+  background: #f0eeeb;
+  color: #3f3a36;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.about-hero {
+  min-height: calc(100vh - 84px);
+
+  padding: 80px 7vw;
+
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+
+  align-items: center;
+
+  gap: 8vw;
+}
+
+
+.about-hero-content {
+  max-width: 700px;
+}
+
+
+.about-eyebrow {
+  display: block;
+
+  margin-bottom: 25px;
+
+  color: #6e6863;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: 0.2em;
+}
+
+
+.about-hero h1 {
+  margin: 0;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: clamp(52px, 6vw, 84px);
+
+  font-weight: 400;
+
+  line-height: 0.98;
+
+  letter-spacing: -0.045em;
+}
+
+
+.about-hero h1 em {
+  color: #6e6863;
+
+  font-weight: 400;
+}
+
+
+.about-hero-content > p {
+  max-width: 480px;
+
+  margin-top: 32px;
+
+  color: #6e6863;
+
+  font-size: 14px;
+
+  line-height: 1.85;
+}
+
+
+/* =========================
+   IMAGE
+========================= */
+
+.about-hero-image {
+  width: 100%;
+
+  min-height: 650px;
+
+  overflow: hidden;
+
+  background: #d9d4cf;
+}
+
+
+.about-hero-image img {
+  width: 100%;
+  height: 100%;
+
+  min-height: 650px;
+
+  display: block;
+
+  object-fit: cover;
+
+  object-position: center;
+
+  filter: saturate(0.75);
+}
+
+
+/* =========================
+   INTRODUCTION
+========================= */
+
+.about-introduction {
+  padding: 130px 7vw;
+
+  display: grid;
+
+  grid-template-columns: 0.35fr 1fr;
+
+  gap: 8vw;
+
+  border-top: 1px solid rgba(63, 58, 54, 0.15);
+}
+
+
+.about-label {
+  color: #ada295;
+
+  font-size: 9px;
+  font-weight: 600;
+
+  letter-spacing: 0.18em;
+}
+
+
+.about-text {
+  max-width: 760px;
+}
+
+
+.about-text h2 {
+  margin: 0;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: clamp(38px, 4.5vw, 64px);
+
+  font-weight: 400;
+
+  line-height: 1.05;
+
+  letter-spacing: -0.035em;
+}
+
+
+.about-text h2 em {
+  color: #6e6863;
+
+  font-weight: 400;
+}
+
+
+.about-text p {
+  max-width: 600px;
+
+  margin-top: 30px;
+
+  color: #6e6863;
+
+  font-size: 14px;
+
+  line-height: 1.9;
+}
+
+
+/* =========================
+   PHILOSOPHY
+========================= */
+
+.about-philosophy {
+  padding: 150px 7vw;
+
+  background: #d9d4cf;
+
+  text-align: center;
+}
+
+
+.about-philosophy-content {
+  max-width: 850px;
+
+  margin: auto;
+}
+
+
+.about-philosophy span {
+  color: #6e6863;
+
+  font-size: 9px;
+  font-weight: 600;
+
+  letter-spacing: 0.2em;
+}
+
+
+.about-philosophy blockquote {
+  margin: 30px 0;
+
+  color: #3f3a36;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: clamp(38px, 5vw, 68px);
+
+  font-weight: 400;
+
+  line-height: 1.05;
+
+  letter-spacing: -0.035em;
+}
+
+
+.about-philosophy p {
+  color: #6e6863;
+
+  font-size: 11px;
+
+  letter-spacing: 0.08em;
+}
+
+
+/* =========================
+   ST DARLEX
+========================= */
+
+.about-st-darlex {
+  padding: 130px 7vw;
+
+  display: grid;
+
+  grid-template-columns: 0.35fr 1fr;
+
+  gap: 8vw;
+}
+
+
+.about-st-label {
+  color: #ada295;
+
+  font-size: 9px;
+  font-weight: 600;
+
+  letter-spacing: 0.18em;
+}
+
+
+.about-st-content {
+  max-width: 700px;
+}
+
+
+.about-st-content h2 {
+  margin: 0;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: clamp(45px, 5vw, 72px);
+
+  font-weight: 400;
+
+  line-height: 1;
+}
+
+
+.about-st-content h2 em {
+  color: #6e6863;
+
+  font-weight: 400;
+}
+
+
+.about-st-content p {
+  max-width: 520px;
+
+  margin-top: 30px;
+
+  color: #6e6863;
+
+  font-size: 14px;
+
+  line-height: 1.85;
+}
+
+
+.about-st-link {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-top: 30px;
+
+  padding-bottom: 5px;
+
+  color: #5f5954;
+
+  border-bottom: 1px solid #ada295;
+
+  font-size: 11px;
+
+  text-decoration: none;
+}
+
+
+.about-st-link span {
+  font-size: 15px;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 900px) {
+
+  .about-hero {
+    grid-template-columns: 1fr;
+
+    gap: 60px;
+
+    padding: 80px 7vw;
+  }
+
+  .about-hero-image {
+    min-height: 560px;
+  }
+
+  .about-hero-image img {
+    min-height: 560px;
+  }
+
+  .about-introduction,
+  .about-st-darlex {
+    grid-template-columns: 1fr;
+
+    gap: 35px;
+  }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+  .about-hero {
+    padding: 65px 5vw;
+
+    gap: 45px;
+  }
+
+  .about-hero h1 {
+    font-size: clamp(43px, 12vw, 56px);
+
+    line-height: 1;
+  }
+
+  .about-hero-content > p {
+    margin-top: 25px;
+
+    font-size: 13px;
+  }
+
+  .about-hero-image {
+    min-height: 470px;
+  }
+
+  .about-hero-image img {
+    min-height: 470px;
+  }
+
+
+  .about-introduction {
+    padding: 85px 5vw;
+
+    gap: 35px;
+  }
+
+  .about-text h2 {
+    font-size: 38px;
+  }
+
+  .about-text p {
+    font-size: 13px;
+  }
+
+
+  .about-philosophy {
+    padding: 100px 5vw;
+  }
+
+  .about-philosophy blockquote {
+    font-size: 38px;
+  }
+
+
+  .about-st-darlex {
+    padding: 85px 5vw;
+
+    gap: 35px;
+  }
+
+  .about-st-content h2 {
+    font-size: 45px;
+  }
+
+  .about-st-content p {
+    font-size: 13px;
+  }
+}
+
+
+/* =========================
+   SMALL PHONES
+========================= */
+
+@media (max-width: 380px) {
+
+  .about-hero {
+    padding: 55px 4vw;
+  }
+
+  .about-hero h1 {
+    font-size: 40px;
+  }
+
+  .about-hero-image,
+  .about-hero-image img {
+    min-height: 400px;
+  }
+
+  .about-introduction,
+  .about-st-darlex {
+    padding: 70px 4vw;
+  }
+
+  .about-text h2 {
+    font-size: 34px;
+  }
+
+  .about-philosophy {
+    padding: 80px 4vw;
+  }
+
+  .about-philosophy blockquote {
+    font-size: 34px;
+  }
+
+  .about-st-content h2 {
+    font-size: 40px;
+  }
+}

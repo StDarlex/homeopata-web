@@ -1,0 +1,436 @@
+/* =========================================================
+   BOOKING PAGE
+========================================================= */
+
+.booking-page {
+  min-height: 100vh;
+  background: #f6f4f1;
+  color: #3f3a36;
+  padding: 110px 24px 80px;
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   OCULTAR HERO
+========================================================= */
+
+.booking-hero {
+  display: none;
+}
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+========================================================= */
+
+.booking-section {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.booking-intro {
+  text-align: center;
+  margin-bottom: 38px;
+}
+
+.booking-intro > span {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #8c837b;
+}
+
+.booking-intro h2 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(25px, 4vw, 34px);
+  font-weight: 400;
+  line-height: 1.15;
+  color: #403b37;
+}
+
+.booking-intro h2 em {
+  font-style: italic;
+  color: #8d847c;
+}
+
+.booking-intro p {
+  max-width: 570px;
+  margin: 14px auto 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #827a73;
+}
+
+/* =========================================================
+   FORMULARIO
+========================================================= */
+
+.booking-form {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #e2ddd7;
+  padding: 38px 42px;
+  box-sizing: border-box;
+  box-shadow: 0 12px 35px rgba(63, 58, 54, 0.05);
+}
+
+/* =========================================================
+   SECCIONES
+========================================================= */
+
+.booking-form-section {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 22px;
+  padding: 0 0 30px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #ebe7e2;
+}
+
+.booking-form-section:last-of-type {
+  margin-bottom: 0;
+}
+
+.booking-form-number {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-top: 3px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 14px;
+  color: #a49b93;
+}
+
+/* =========================================================
+   CAMPOS
+========================================================= */
+
+.booking-form-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 18px;
+}
+
+.booking-field {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.booking-field-full {
+  grid-column: 1 / -1;
+}
+
+.booking-field label {
+  margin-bottom: 7px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  color: #665f59;
+}
+
+.booking-field input,
+.booking-field select,
+.booking-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  border: 1px solid #ddd8d2;
+  border-radius: 2px;
+
+  background: #faf9f7;
+  color: #3f3a36;
+
+  font-family: inherit;
+  font-size: 13px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.booking-field input,
+.booking-field select {
+  height: 43px;
+  padding: 0 13px;
+}
+
+.booking-field textarea {
+  min-height: 105px;
+  padding: 12px 13px;
+  resize: vertical;
+  line-height: 1.55;
+}
+
+.booking-field input::placeholder,
+.booking-field textarea::placeholder {
+  color: #aaa29b;
+}
+
+.booking-field input:hover,
+.booking-field select:hover,
+.booking-field textarea:hover {
+  border-color: #c8c0b8;
+}
+
+.booking-field input:focus,
+.booking-field select:focus,
+.booking-field textarea:focus {
+  border-color: #a79d95;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(173, 162, 149, 0.12);
+}
+
+/* =========================================================
+   SELECT
+========================================================= */
+
+.booking-field select {
+  appearance: none;
+  cursor: pointer;
+
+  background-image:
+    linear-gradient(45deg, transparent 50%, #8f8780 50%),
+    linear-gradient(135deg, #8f8780 50%, transparent 50%);
+  background-position:
+    calc(100% - 15px) 18px,
+    calc(100% - 10px) 18px;
+  background-size:
+    5px 5px,
+    5px 5px;
+  background-repeat: no-repeat;
+}
+
+/* =========================================================
+   MENSAJES
+========================================================= */
+
+.booking-message {
+  margin-top: 22px;
+  padding: 13px 15px;
+
+  font-size: 12px;
+  line-height: 1.6;
+
+  border-radius: 2px;
+}
+
+.booking-success {
+  background: #eef1eb;
+  border: 1px solid #d9dfd2;
+  color: #58614f;
+}
+
+.booking-error {
+  background: #f5eded;
+  border: 1px solid #e5d5d5;
+  color: #8a5e5e;
+}
+
+/* =========================================================
+   BOTÓN
+========================================================= */
+
+.booking-submit {
+  width: 100%;
+  height: 48px;
+
+  margin-top: 28px;
+
+  border: none;
+  border-radius: 2px;
+
+  background: #4f4a45;
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  transition:
+    background 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.25s ease;
+}
+
+.booking-submit span {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.booking-submit:hover:not(:disabled) {
+  background: #3f3b37;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(63, 58, 54, 0.12);
+}
+
+.booking-submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.booking-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   DISCLAIMER
+========================================================= */
+
+.booking-disclaimer {
+  max-width: 620px;
+  margin: 16px auto 0;
+
+  text-align: center;
+
+  font-size: 10px;
+  line-height: 1.6;
+  color: #9a928b;
+}
+
+/* =========================================================
+   OCULTAR CTA
+========================================================= */
+
+.booking-cta {
+  display: none;
+}
+
+/* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
+
+@media (max-width: 700px) {
+  .booking-page {
+    padding: 90px 16px 55px;
+  }
+
+  .booking-form {
+    padding: 30px 24px;
+  }
+
+  .booking-form-section {
+    grid-template-columns: 32px 1fr;
+    gap: 14px;
+  }
+
+  .booking-form-fields {
+    grid-template-columns: 1fr;
+    gap: 17px;
+  }
+
+  .booking-field-full {
+    grid-column: auto;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — MÓVIL
+========================================================= */
+
+@media (max-width: 480px) {
+  .booking-page {
+    padding: 78px 12px 45px;
+  }
+
+  .booking-intro {
+    margin-bottom: 25px;
+  }
+
+  .booking-intro > span {
+    font-size: 9px;
+    letter-spacing: 1.7px;
+  }
+
+  .booking-intro h2 {
+    font-size: 27px;
+  }
+
+  .booking-intro p {
+    max-width: 330px;
+    font-size: 12px;
+    line-height: 1.65;
+  }
+
+  .booking-form {
+    padding: 25px 18px;
+  }
+
+  .booking-form-section {
+    grid-template-columns: 26px 1fr;
+    gap: 10px;
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+  }
+
+  .booking-form-number {
+    font-size: 12px;
+  }
+
+  .booking-field label {
+    font-size: 9px;
+  }
+
+  .booking-field input,
+  .booking-field select {
+    height: 42px;
+    font-size: 12px;
+  }
+
+  .booking-field textarea {
+    min-height: 95px;
+    font-size: 12px;
+  }
+
+  .booking-submit {
+    height: 46px;
+    margin-top: 24px;
+    font-size: 10px;
+  }
+
+  .booking-disclaimer {
+    font-size: 9px;
+    margin-top: 13px;
+  }
+}
+
+/* =========================================================
+   PANTALLAS MUY PEQUEÑAS
+========================================================= */
+
+@media (max-width: 350px) {
+  .booking-page {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .booking-form {
+    padding: 22px 14px;
+  }
+
+  .booking-form-section {
+    grid-template-columns: 20px 1fr;
+    gap: 8px;
+  }
+}

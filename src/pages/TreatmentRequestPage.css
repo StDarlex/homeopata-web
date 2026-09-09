@@ -1,0 +1,801 @@
+/* =========================================================
+   TREATMENT REQUEST PAGE
+========================================================= */
+
+.treatment-page {
+  min-height: 100vh;
+
+  background: #f0eeeb;
+  color: #3f3a36;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   MAIN LAYOUT
+========================================================= */
+
+.treatment {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+
+  padding: 110px 7vw 130px;
+
+  display: grid;
+  grid-template-columns: minmax(300px, 0.85fr) minmax(500px, 1.15fr);
+  gap: clamp(70px, 9vw, 150px);
+
+  align-items: start;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.treatment-intro {
+  position: sticky;
+  top: 45px;
+
+  max-width: 520px;
+}
+
+
+.treatment-eyebrow {
+  display: inline-block;
+
+  margin-bottom: 30px;
+
+  color: #ada295;
+
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+
+.treatment-intro h1 {
+  margin: 0;
+
+  color: #3f3a36;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(50px, 5.5vw, 82px);
+  font-weight: 400;
+
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+
+.treatment-intro h1 em {
+  color: #6e6863;
+
+  font-weight: 400;
+}
+
+
+.treatment-intro > p {
+  max-width: 430px;
+
+  margin-top: 35px;
+
+  color: #6e6863;
+
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+
+/* =========================================================
+   PROCESS INFORMATION
+========================================================= */
+
+.treatment-info {
+  display: grid;
+  grid-template-columns: 38px 1fr;
+
+  gap: 15px;
+
+  max-width: 420px;
+
+  margin-top: 38px;
+  padding-top: 20px;
+
+  border-top: 1px solid rgba(63, 58, 54, 0.16);
+}
+
+
+.treatment-info span {
+  color: #ada295;
+
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+
+
+.treatment-info p {
+  margin: 0;
+
+  color: #5f5954;
+
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   BACK LINK
+========================================================= */
+
+.treatment-back {
+  display: inline-flex;
+  align-items: center;
+
+  margin-top: 45px;
+
+  color: #5f5954;
+
+  font-size: 11px;
+  letter-spacing: 0.04em;
+
+  text-decoration: none;
+
+  border-bottom: 1px solid rgba(95, 89, 84, 0.4);
+
+  padding-bottom: 6px;
+
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+.treatment-back:hover {
+  color: #3f3a36;
+
+  border-color: #3f3a36;
+
+  transform: translateX(-3px);
+}
+
+
+/* =========================================================
+   FORM WRAPPER
+========================================================= */
+
+.treatment-form-wrapper {
+  width: 100%;
+}
+
+
+.treatment-form {
+  width: 100%;
+
+  background: #d9d4cf;
+
+  border: 1px solid rgba(63, 58, 54, 0.13);
+}
+
+
+/* =========================================================
+   FORM SECTION
+========================================================= */
+
+.form-section {
+  padding: 48px clamp(30px, 4vw, 65px);
+
+  border-bottom: 1px solid rgba(63, 58, 54, 0.14);
+}
+
+
+.form-section:last-of-type {
+  border-bottom: none;
+}
+
+
+/* =========================================================
+   SECTION HEADING
+========================================================= */
+
+.form-section-heading {
+  display: grid;
+  grid-template-columns: 35px 1fr;
+
+  gap: 18px;
+
+  margin-bottom: 38px;
+}
+
+
+.form-section-heading > span {
+  padding-top: 4px;
+
+  color: #ada295;
+
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+
+
+.form-section-heading small {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #6e6863;
+
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+}
+
+
+.form-section-heading h2 {
+  margin: 0;
+
+  color: #3f3a36;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(25px, 2.3vw, 34px);
+  font-weight: 400;
+
+  line-height: 1.15;
+}
+
+
+/* =========================================================
+   FORM ROW
+========================================================= */
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 24px;
+}
+
+
+/* =========================================================
+   FORM GROUP
+========================================================= */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 27px;
+}
+
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+
+.form-group label {
+  margin-bottom: 9px;
+
+  color: #5f5954;
+
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+
+  padding: 14px 0;
+
+  background: transparent;
+
+  border: none;
+  border-bottom: 1px solid rgba(63, 58, 54, 0.25);
+
+  border-radius: 0;
+
+  outline: none;
+
+  color: #3f3a36;
+
+  font-family: inherit;
+  font-size: 13px;
+
+  transition:
+    border-color 0.25s ease,
+    padding 0.25s ease;
+}
+
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #8b847d;
+}
+
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #5f5954;
+
+  padding-left: 5px;
+}
+
+
+/* =========================================================
+   SELECT
+========================================================= */
+
+.form-group select {
+  cursor: pointer;
+
+  appearance: none;
+
+  background-image:
+    linear-gradient(45deg, transparent 50%, #6e6863 50%),
+    linear-gradient(135deg, #6e6863 50%, transparent 50%);
+
+  background-position:
+    calc(100% - 7px) 52%,
+    calc(100% - 2px) 52%;
+
+  background-size:
+    5px 5px,
+    5px 5px;
+
+  background-repeat: no-repeat;
+}
+
+
+/* =========================================================
+   TEXTAREA
+========================================================= */
+
+.form-group textarea {
+  min-height: 110px;
+
+  resize: vertical;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   SUBMIT AREA
+========================================================= */
+
+.treatment-submit-area {
+  padding: 40px clamp(30px, 4vw, 65px) 45px;
+
+  background: #c3bbb2;
+
+  border-top: 1px solid rgba(63, 58, 54, 0.13);
+}
+
+
+.treatment-submit {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 18px 20px;
+
+  background: #3f3a36;
+
+  border: 1px solid #3f3a36;
+
+  color: #f0eeeb;
+
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+.treatment-submit span {
+  font-size: 18px;
+  font-weight: 400;
+
+  transition: transform 0.25s ease;
+}
+
+
+.treatment-submit:hover {
+  background: transparent;
+
+  color: #3f3a36;
+
+  transform: translateY(-2px);
+}
+
+
+.treatment-submit:hover span {
+  transform: translate(4px, -4px);
+}
+
+
+.treatment-submit-area > p {
+  max-width: 500px;
+
+  margin: 18px auto 0;
+
+  color: #6e6863;
+
+  font-size: 10px;
+  line-height: 1.7;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   SUCCESS STATE
+========================================================= */
+
+.treatment-success {
+  width: min(720px, 90%);
+
+  margin: 0 auto;
+
+  padding: 150px 0;
+
+  text-align: center;
+}
+
+
+.treatment-success .treatment-eyebrow {
+  margin-bottom: 28px;
+}
+
+
+.treatment-success h1 {
+  margin: 0;
+
+  color: #3f3a36;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(55px, 7vw, 90px);
+  font-weight: 400;
+
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+
+.treatment-success h1 em {
+  color: #6e6863;
+
+  font-weight: 400;
+}
+
+
+.treatment-success > p {
+  max-width: 560px;
+
+  margin: 35px auto 0;
+
+  color: #6e6863;
+
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+
+.treatment-success-folio {
+  display: inline-flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  margin-top: 45px;
+  padding: 20px 35px;
+
+  border-top: 1px solid rgba(63, 58, 54, 0.2);
+  border-bottom: 1px solid rgba(63, 58, 54, 0.2);
+}
+
+
+.treatment-success-folio span {
+  color: #ada295;
+
+  font-size: 9px;
+  letter-spacing: 0.18em;
+}
+
+
+.treatment-success-folio strong {
+  color: #5f5954;
+
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+
+.treatment-success .treatment-back {
+  margin-top: 45px;
+}
+
+
+/* =========================================================
+   LARGE TABLETS
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .treatment {
+    grid-template-columns: 1fr;
+
+    gap: 70px;
+
+    padding-top: 90px;
+  }
+
+
+  .treatment-intro {
+    position: static;
+
+    max-width: 700px;
+  }
+
+
+  .treatment-intro > p {
+    max-width: 600px;
+  }
+
+
+  .treatment-info {
+    display: inline-grid;
+
+    margin-right: 35px;
+    vertical-align: top;
+  }
+
+
+  .treatment-form-wrapper {
+    max-width: 850px;
+  }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .treatment {
+    padding: 75px 5vw 90px;
+
+    gap: 55px;
+  }
+
+
+  .treatment-intro h1 {
+    font-size: 52px;
+  }
+
+
+  .treatment-intro > p {
+    font-size: 12px;
+  }
+
+
+  .treatment-info {
+    display: grid;
+
+    margin-right: 0;
+  }
+
+
+  .treatment-form {
+    border-left: none;
+    border-right: none;
+  }
+
+
+  .form-section {
+    padding: 38px 6vw;
+  }
+
+
+  .form-row {
+    grid-template-columns: 1fr;
+
+    gap: 0;
+  }
+
+
+  .form-section-heading {
+    margin-bottom: 30px;
+  }
+
+
+  .form-section-heading h2 {
+    font-size: 27px;
+  }
+
+
+  .treatment-submit-area {
+    padding: 32px 6vw 38px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .treatment {
+    padding: 60px 5vw 70px;
+  }
+
+
+  .treatment-intro h1 {
+    font-size: 44px;
+
+    line-height: 1;
+  }
+
+
+  .treatment-eyebrow {
+    margin-bottom: 22px;
+
+    font-size: 9px;
+  }
+
+
+  .treatment-intro > p {
+    margin-top: 25px;
+
+    font-size: 12px;
+    line-height: 1.8;
+  }
+
+
+  .treatment-info {
+    grid-template-columns: 30px 1fr;
+
+    gap: 10px;
+
+    margin-top: 28px;
+    padding-top: 16px;
+  }
+
+
+  .treatment-info p {
+    font-size: 11px;
+  }
+
+
+  .treatment-back {
+    margin-top: 35px;
+
+    font-size: 10px;
+  }
+
+
+  .form-section {
+    padding: 32px 5vw;
+  }
+
+
+  .form-section-heading {
+    grid-template-columns: 28px 1fr;
+
+    gap: 12px;
+
+    margin-bottom: 28px;
+  }
+
+
+  .form-section-heading h2 {
+    font-size: 24px;
+  }
+
+
+  .form-group {
+    margin-bottom: 23px;
+  }
+
+
+  .form-group label {
+    font-size: 9px;
+  }
+
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 12px 0;
+
+    font-size: 12px;
+  }
+
+
+  .treatment-submit-area {
+    padding: 28px 5vw 32px;
+  }
+
+
+  .treatment-submit {
+    padding: 16px;
+
+    font-size: 9px;
+  }
+
+
+  .treatment-success {
+    padding: 110px 0;
+  }
+
+
+  .treatment-success h1 {
+    font-size: 50px;
+  }
+
+
+  .treatment-success > p {
+    font-size: 12px;
+  }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .treatment {
+    padding: 50px 4vw 60px;
+  }
+
+
+  .treatment-intro h1 {
+    font-size: 39px;
+  }
+
+
+  .form-section {
+    padding: 28px 5vw;
+  }
+
+
+  .form-section-heading h2 {
+    font-size: 22px;
+  }
+
+
+  .treatment-submit {
+    font-size: 8px;
+
+    letter-spacing: 0.1em;
+  }
+}

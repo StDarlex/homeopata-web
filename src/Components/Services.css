@@ -1,0 +1,447 @@
+/* =========================
+   SERVICES
+========================= */
+
+.services {
+  width: 100%;
+
+  padding: 120px 7vw;
+
+  box-sizing: border-box;
+
+  background: #f0eeeb;
+
+  color: #3f3a36;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.services-header {
+  width: 100%;
+  max-width: 1300px;
+
+  margin: 0 auto;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 70px;
+}
+
+
+.services-heading {
+  min-width: 0;
+}
+
+
+.services-eyebrow {
+  display: block;
+
+  margin-bottom: 24px;
+
+  color: #ada295;
+
+  font-size: 9px;
+  font-weight: 600;
+
+  letter-spacing: 0.18em;
+}
+
+
+.services h2 {
+  margin: 0;
+
+  color: #3f3a36;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: clamp(50px, 6vw, 82px);
+
+  font-weight: 400;
+
+  line-height: 0.98;
+
+  letter-spacing: -0.045em;
+}
+
+
+.services h2 em {
+  color: #6e6863;
+
+  font-style: italic;
+
+  font-weight: 400;
+}
+
+
+.services-description {
+  width: 100%;
+  max-width: 360px;
+
+  margin: 0;
+
+  color: #6e6863;
+
+  font-size: 13px;
+
+  line-height: 1.85;
+}
+
+
+/* =========================
+   LIST
+========================= */
+
+.services-list {
+  width: 100%;
+  max-width: 1300px;
+
+  margin: 90px auto 0;
+
+  border-top: 1px solid rgba(63, 58, 54, 0.18);
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.service-card {
+  width: 100%;
+
+  min-height: 190px;
+
+  padding: 35px 0;
+
+  box-sizing: border-box;
+
+  display: grid;
+
+  grid-template-columns: 65px minmax(0, 1fr) 30px;
+
+  gap: 25px;
+
+  align-items: start;
+
+  border-bottom: 1px solid rgba(63, 58, 54, 0.18);
+
+  transition:
+    background 0.3s ease,
+    padding 0.3s ease;
+}
+
+
+.service-card:hover {
+  padding-left: 15px;
+  padding-right: 15px;
+
+  background: rgba(217, 212, 207, 0.25);
+}
+
+
+/* =========================
+   NUMBER
+========================= */
+
+.service-number {
+  padding-top: 7px;
+
+  color: #ada295;
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.12em;
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.service-content {
+  min-width: 0;
+}
+
+
+.service-content h3 {
+  margin: 0;
+
+  color: #3f3a36;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: clamp(30px, 3vw, 40px);
+
+  font-weight: 400;
+
+  line-height: 1.1;
+}
+
+
+.service-content p {
+  max-width: 620px;
+
+  margin: 15px 0 0;
+
+  color: #6e6863;
+
+  font-size: 13px;
+
+  line-height: 1.8;
+}
+
+
+/* =========================
+   LINK
+========================= */
+
+.service-link {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: 22px;
+
+  padding-bottom: 5px;
+
+  border-bottom: 1px solid #ada295;
+
+  color: #3f3a36;
+
+  font-size: 10px;
+
+  text-decoration: none;
+
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+
+.service-link span {
+  font-size: 15px;
+
+  transition: transform 0.25s ease;
+}
+
+
+.service-link:hover {
+  color: #6e6863;
+
+  border-color: #6e6863;
+}
+
+
+.service-link:hover span {
+  transform: translate(3px, -3px);
+}
+
+
+/* =========================
+   ARROW
+========================= */
+
+.service-arrow {
+  padding-top: 3px;
+
+  color: #ada295;
+
+  font-size: 20px;
+
+  line-height: 1;
+
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+.service-card:hover .service-arrow {
+  color: #3f3a36;
+
+  transform: translate(4px, -4px);
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 900px) {
+
+  .services {
+    padding: 100px 7vw;
+  }
+
+
+  .services-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 35px;
+  }
+
+
+  .services-description {
+    max-width: 520px;
+  }
+
+
+  .services-list {
+    margin-top: 70px;
+  }
+
+
+  .service-card {
+    grid-template-columns: 50px minmax(0, 1fr) 25px;
+
+    gap: 20px;
+  }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+  .services {
+    padding: 80px 5vw;
+  }
+
+
+  .services-eyebrow {
+    margin-bottom: 20px;
+
+    font-size: 8px;
+  }
+
+
+  .services h2 {
+    font-size: clamp(43px, 12vw, 56px);
+  }
+
+
+  .services-description {
+    font-size: 12px;
+
+    line-height: 1.75;
+  }
+
+
+  .services-list {
+    margin-top: 55px;
+  }
+
+
+  .service-card {
+    grid-template-columns: 32px minmax(0, 1fr) 18px;
+
+    gap: 12px;
+
+    padding: 28px 0;
+  }
+
+
+  .service-card:hover {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+
+  .service-number {
+    padding-top: 4px;
+
+    font-size: 9px;
+  }
+
+
+  .service-content h3 {
+    font-size: 28px;
+  }
+
+
+  .service-content p {
+    margin-top: 10px;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+  }
+
+
+  .service-link {
+    margin-top: 18px;
+
+    font-size: 9px;
+  }
+
+
+  .service-arrow {
+    font-size: 16px;
+  }
+
+}
+
+
+/* =========================
+   SMALL PHONES
+========================= */
+
+@media (max-width: 380px) {
+
+  .services {
+    padding: 70px 4vw;
+  }
+
+
+  .services h2 {
+    font-size: 40px;
+  }
+
+
+  .services-description {
+    font-size: 11px;
+  }
+
+
+  .service-card {
+    grid-template-columns: 27px minmax(0, 1fr) 16px;
+
+    gap: 9px;
+
+    padding: 25px 0;
+  }
+
+
+  .service-content h3 {
+    font-size: 25px;
+  }
+
+
+  .service-content p {
+    font-size: 11px;
+  }
+
+
+  .service-number {
+    font-size: 8px;
+  }
+
+
+  .service-arrow {
+    font-size: 14px;
+  }
+
+}
