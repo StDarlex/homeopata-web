@@ -13,6 +13,9 @@ import BookingPage from "./pages/BookingPage";
 import TreatmentRequestPage from "./pages/TreatmentRequestPage";
 import ServicesPage from "./pages/ServicesPage";
 import ContactPage from "./pages/ContactPage";
+import PrivacyPage from "./pages/PrivacyPage";
+import LegalPage from "./pages/LegalPage";
+import ApproachPage from "./pages/ApproachPage";
 
 // =====================================================
 // PÁGINAS ADMIN
@@ -81,6 +84,24 @@ function App() {
           element={<ContactPage />}
         />
 
+{/* ENFOQUE */}
+<Route
+  path="/enfoque"
+  element={<ApproachPage />}
+/>
+
+        {/* PRIVACIDAD */}
+        <Route
+          path="/privacidad"
+          element={<PrivacyPage />}
+        />
+
+        {/* AVISO LEGAL */}
+        <Route
+          path="/aviso-legal"
+          element={<LegalPage />}
+        />
+
 
         {/* =================================================
             PANEL DE ADMINISTRACIÓN
@@ -110,10 +131,12 @@ function App() {
           element={<AdminRequestsPage />}
         />
 
+        {/* CITAS */}
         <Route
-  path="/admin/citas"
-  element={<AdminBookingsPage />}
-/>
+          path="/admin/citas"
+          element={<AdminBookingsPage />}
+        />
+
       </Routes>
 
 

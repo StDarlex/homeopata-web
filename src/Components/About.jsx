@@ -1,54 +1,54 @@
+import React from "react";
 import "./About.css";
 
-function About() {
+const About = () => {
   return (
-    <section id="sobre-mi" className="about">
-      <div className="about-image">
-        <div className="about-photo">
-          <span>Fotografía del consultorio</span>
+    <section className="about" id="about">
+      <div className="about-container">
+
+        <div className="about-top">
+          <span className="about-label">SOBRE EL ESPECIALISTA</span>
         </div>
-      </div>
 
-      <div className="about-content">
-        <p className="about-eyebrow">
-          SOBRE MÍ
-        </p>
+        <div className="about-content">
 
-        <h2>
-          Una trayectoria
-          <br />
-          construida alrededor
-          <br />
-          de las <em>personas.</em>
-        </h2>
-
-        <p className="about-intro">
-          Mi práctica nace de una convicción sencilla: cada persona
-          merece ser escuchada, comprendida y acompañada de manera
-          individual.
-        </p>
-
-        <p className="about-text">
-          A lo largo de mi trayectoria he tenido la oportunidad de
-          acompañar a muchas personas y familias, aprendiendo que
-          detrás de cada consulta existe una historia diferente.
-        </p>
-
-        <div className="about-founder">
-          <span className="about-line"></span>
-
-          <div>
-            <strong>Fundador de St. Darlex</strong>
-
-            <p>
-              Una visión que comenzó con el deseo de acercar la
-              homeopatía a más personas.
-            </p>
+          <div className="about-message">
+            <h2>
+              Tu bienestar
+              <br />
+              merece ser <em>comprendido.</em>
+            </h2>
           </div>
+
+          <div className="about-description">
+            <p>
+              Un espacio de atención cercana y personalizada,
+              donde escuchar, comprender y acompañar forman parte
+              de cada encuentro.
+            </p>
+
+            <a href="contacto" className="about-link">
+              <span>Conocer el enfoque</span>
+              <span className="about-arrow">↗</span>
+            </a>
+          </div>
+
         </div>
+
+        <div className="about-bottom">
+
+          <div className="about-line"></div>
+
+          <div className="about-signature">
+            <span>Dr. Alejandro Adame Cafuentes</span>
+            <small>Homeopatía</small>
+          </div>
+
+        </div>
+
       </div>
     </section>
   );
-}
+};
 
 export default About;

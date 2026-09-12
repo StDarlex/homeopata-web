@@ -1,225 +1,324 @@
+/* =========================================
+   ABOUT
+   Dr. Alejandro Adame Cafuentes
+   Minimal / Elegant / Natural
+   ========================================= */
+
 .about {
-  padding: 150px 10vw;
-
-  display: grid;
-  grid-template-columns: 0.85fr 1fr;
-  gap: 9vw;
-
-  align-items: center;
+  position: relative;
+  width: 100%;
+  padding: 150px 0;
 
   background: #f0eeeb;
+  color: #5b554f;
+
+  overflow: hidden;
 }
 
-.about-image {
+.about-container {
+  width: min(1120px, calc(100% - 64px));
+  margin: 0 auto;
+}
+
+/* =========================================
+   TOP
+   ========================================= */
+
+.about-top {
+  margin-bottom: 90px;
+}
+
+.about-label {
   position: relative;
-}
 
-.about-photo {
-  min-height: 650px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
 
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-
-  padding-bottom: 28px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(42, 61, 49, 0.05),
-      rgba(42, 61, 49, 0.16)
-    ),
-    #dddcd4;
-
-  color: #69736c;
-
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.about-content {
-  max-width: 620px;
-}
-
-.about-eyebrow {
-  margin-bottom: 25px;
-
-  color: #748174;
-
-  font-size: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.62rem;
   font-weight: 600;
   letter-spacing: 0.2em;
+
+  color: #93877c;
 }
 
-.about h2 {
-  color: #3f3a36;
+.about-label::before {
+  content: "";
+
+  width: 28px;
+  height: 1px;
+
+  background: #ada295;
+}
+
+/* =========================================
+   MAIN CONTENT
+   ========================================= */
+
+.about-content {
+  display: grid;
+
+  grid-template-columns: 1.25fr 0.75fr;
+
+  gap: 100px;
+
+  align-items: end;
+}
+
+/* =========================================
+   MAIN MESSAGE
+   ========================================= */
+
+.about-message h2 {
+  margin: 0;
+
+  max-width: 780px;
 
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(45px, 5vw, 70px);
+  font-size: clamp(4rem, 7vw, 6.8rem);
   font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.055em;
 
-  line-height: 1.02;
-  letter-spacing: -0.04em;
+  color: #554f49;
 }
 
-.about h2 em {
-  color: #6e6863;
+.about-message em {
+  color: #9b8f84;
   font-weight: 400;
 }
 
-.about-intro {
-  max-width: 500px;
-  margin-top: 35px;
+/* =========================================
+   DESCRIPTION
+   ========================================= */
 
-  color: #4f5b53;
-
-  font-size: 17px;
-  line-height: 1.8;
+.about-description {
+  max-width: 330px;
+  padding-bottom: 8px;
 }
 
-.about-text {
-  max-width: 500px;
-  margin-top: 20px;
+.about-description p {
+  margin: 0;
 
-  color: #777e77;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.85;
 
-  font-size: 14px;
-  line-height: 1.9;
+  color: #817870;
 }
 
-.about-founder {
-  margin-top: 55px;
+/* =========================================
+   LINK
+   ========================================= */
 
-  display: flex;
+.about-link {
+  display: inline-flex;
+  align-items: center;
   gap: 18px;
-  align-items: flex-start;
+
+  margin-top: 35px;
+  padding-bottom: 9px;
+
+  border-bottom: 1px solid #a3978c;
+
+  text-decoration: none;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  color: #625a53;
+
+  transition:
+    color 0.3s ease,
+    gap 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.about-arrow {
+  font-size: 0.95rem;
+  font-weight: 400;
+
+  transition: transform 0.3s ease;
+}
+
+.about-link:hover {
+  gap: 25px;
+
+  color: #8d8177;
+  border-color: #8d8177;
+}
+
+.about-link:hover .about-arrow {
+  transform: translate(3px, -3px);
+}
+
+/* =========================================
+   BOTTOM
+   ========================================= */
+
+.about-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  margin-top: 120px;
 }
 
 .about-line {
-  width: 35px;
+  width: 55%;
+
   height: 1px;
 
-  margin-top: 8px;
-
-  background: #7a897c;
+  background: rgba(173, 162, 149, 0.45);
 }
 
-.about-founder strong {
-  color: #3f3a36;
+.about-signature {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 
+  gap: 5px;
+}
+
+.about-signature span {
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 19px;
-  font-weight: 400;
+  font-size: 0.9rem;
+
+  color: #716860;
 }
 
-.about-founder p {
-  max-width: 330px;
-  margin-top: 8px;
+.about-signature small {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
 
-  color: #7a817b;
-
-  font-size: 12px;
-  line-height: 1.7;
+  color: #a0968c;
 }
 
-/* TABLET */
+/* =========================================
+   TABLET
+   ========================================= */
 
 @media (max-width: 900px) {
-  .about {
-    grid-template-columns: 1fr;
 
-    padding: 110px 7vw;
-    gap: 70px;
+  .about {
+    padding: 110px 0;
   }
 
-  .about-photo {
-    min-height: 520px;
+  .about-top {
+    margin-bottom: 65px;
+  }
+
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+
+  .about-description {
+    max-width: 480px;
+  }
+
+  .about-bottom {
+    margin-top: 90px;
+  }
+
+  .about-line {
+    width: 45%;
   }
 }
 
-/* MOBILE */
+/* =========================================
+   MOBILE
+   ========================================= */
 
 @media (max-width: 600px) {
+
   .about {
-    padding: 90px 5vw;
+    padding: 90px 0;
   }
 
-  .about h2 {
-    font-size: 45px;
+  .about-container {
+    width: calc(100% - 36px);
   }
 
-  .about-intro {
-    font-size: 15px;
+  .about-top {
+    margin-bottom: 55px;
   }
 
-  .about-photo {
-    min-height: 420px;
+  .about-label {
+    font-size: 0.54rem;
+    letter-spacing: 0.15em;
+  }
+
+  .about-label::before {
+    width: 20px;
+  }
+
+  .about-message h2 {
+    font-size: clamp(3.1rem, 14vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: -0.05em;
+  }
+
+  .about-description {
+    max-width: 340px;
+  }
+
+  .about-description p {
+    font-size: 0.86rem;
+    line-height: 1.8;
+  }
+
+  .about-link {
+    margin-top: 28px;
+  }
+
+  .about-bottom {
+    margin-top: 75px;
+  }
+
+  .about-line {
+    width: 32%;
+  }
+
+  .about-signature {
+    align-items: flex-end;
+  }
+
+  .about-signature span {
+    font-size: 0.75rem;
+    text-align: right;
+  }
+
+  .about-signature small {
+    font-size: 0.5rem;
   }
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media (max-width: 900px) {
-  .about {
-    grid-template-columns: 1fr;
-    padding: 110px 7vw;
-    gap: 65px;
-  }
-
-  .about-photo {
-    min-height: 520px;
-  }
-}
-
-@media (max-width: 600px) {
-  .about {
-    padding: 90px 5vw;
-    gap: 50px;
-  }
-
-  .about h2 {
-    font-size: 46px;
-  }
-
-  .about-intro {
-    font-size: 15px;
-    line-height: 1.75;
-  }
-
-  .about-text {
-    font-size: 13px;
-  }
-
-  .about-photo {
-    min-height: 420px;
-  }
-
-  .about-founder {
-    margin-top: 40px;
-  }
-}
+/* =========================================
+   SMALL PHONES
+   ========================================= */
 
 @media (max-width: 380px) {
+
+  .about-container {
+    width: calc(100% - 28px);
+  }
+
   .about {
-    padding: 75px 4vw;
+    padding: 75px 0;
   }
 
-  .about h2 {
-    font-size: 40px;
+  .about-message h2 {
+    font-size: 2.9rem;
   }
 
-  .about-intro {
-    font-size: 14px;
-  }
-
-  .about-photo {
-    min-height: 360px;
-  }
-
-  .about-founder strong {
-    font-size: 17px;
+  .about-bottom {
+    margin-top: 65px;
   }
 }
