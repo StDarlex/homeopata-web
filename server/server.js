@@ -246,11 +246,17 @@ let transporter = null;
 
 if (EMAIL_USER && EMAIL_PASSWORD) {
   transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
 
     auth: {
       user: EMAIL_USER,
       pass: EMAIL_PASSWORD,
+    },
+
+    tls: {
+      family: 4,
     },
   });
 
