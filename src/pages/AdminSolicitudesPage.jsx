@@ -48,7 +48,7 @@ function AdminSolicitudesPage() {
       }
 
       const response = await fetch(
-        "http://localhost:3000/api/admin/solicitudes",
+        "https://homeopata-web-backend.onrender.com/api/admin/solicitudes",
         {
           method: "GET",
           headers: {
@@ -138,7 +138,7 @@ function AdminSolicitudesPage() {
       }
 
       const response = await fetch(
-        `http://localhost:3000/api/admin/solicitudes/${id}/status`,
+        `https://homeopata-web-backend.onrender.com/api/admin/solicitudes/${id}/status`,
         {
           method: "PUT",
 

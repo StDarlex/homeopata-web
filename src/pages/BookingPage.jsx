@@ -35,7 +35,7 @@ function BookingPage() {
 
     try {
       const response = await fetch(
-        "http://localhost:3000/api/booking",
+        "https://homeopata-web-backend.onrender.com/api/booking",
         {
           method: "POST",
           headers: {

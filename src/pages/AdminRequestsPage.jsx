@@ -50,7 +50,7 @@ function AdminRequestsPage() {
       }
 
       const response = await fetch(
-        "http://localhost:3000/api/admin/treatments",
+        "https://homeopata-web-backend.onrender.com/api/admin/treatments",
         {
           method: "GET",
 
@@ -148,7 +148,7 @@ function AdminRequestsPage() {
       }
 
       const response = await fetch(
-        `http://localhost:3000/api/admin/treatments/${id}/status`,
+        `https://homeopata-web-backend.onrender.com/api/admin/treatments/${id}/status`,
         {
           method: "PUT",
 
@@ -245,7 +245,7 @@ function AdminRequestsPage() {
       }
 
       const response = await fetch(
-        `http://localhost:3000/api/admin/treatments/${id}`,
+        `https://homeopata-web-backend.onrender.com/api/admin/treatments/${id}`,
         {
           method: "DELETE",
 

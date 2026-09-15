@@ -117,7 +117,7 @@ function AdminLoginPage() {
       ================================================= */
 
       const response = await fetch(
-        "http://localhost:3000/api/admin/login",
+        "https://homeopata-web-backend.onrender.com/api/admin/login",
         {
           method: "POST",
 

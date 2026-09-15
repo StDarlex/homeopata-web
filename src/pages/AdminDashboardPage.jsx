@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./AdminDashboardPage.css";
 
-const API_URL = "http://localhost:3000";
+const API_URL = "https://homeopata-web-backend.onrender.com";
 
 const EMPTY_STATISTICS = {
   bookings: 0,

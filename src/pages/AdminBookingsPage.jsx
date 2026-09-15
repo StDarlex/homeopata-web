@@ -24,7 +24,7 @@ function AdminBookingsPage() {
       }
 
       const response = await fetch(
-        "http://localhost:3000/api/admin/bookings",
+        "https://homeopata-web-backend.onrender.com/api/admin/bookings",
         {
           method: "GET",
           headers: {
@@ -85,7 +85,7 @@ function AdminBookingsPage() {
       }
 
       const response = await fetch(
-        `http://localhost:3000/api/admin/bookings/${id}/status`,
+        `https://homeopata-web-backend.onrender.com/api/admin/bookings/${id}/status`,
         {
           method: "PUT",
           headers: {
@@ -154,7 +154,7 @@ function AdminBookingsPage() {
       }
 
       const response = await fetch(
-        `http://localhost:3000/api/admin/bookings/${id}`,
+        `https://homeopata-web-backend.onrender.com/api/admin/bookings/${id}`,
         {
           method: "DELETE",
           headers: {

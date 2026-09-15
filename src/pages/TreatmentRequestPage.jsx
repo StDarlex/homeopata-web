@@ -45,7 +45,7 @@ function TreatmentRequestPage() {
 
     try {
       const response = await fetch(
-        "http://localhost:3000/api/treatment-request",
+        "https://homeopata-web-backend.onrender.com/api/treatment-request",
         {
           method: "POST",
 
