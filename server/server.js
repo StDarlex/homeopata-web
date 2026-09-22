@@ -1,10 +1,6 @@
-import dns from "dns";
-dns.setDefaultResultOrder("ipv4first");
-
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import nodemailer from "nodemailer";
 import Database from "better-sqlite3";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
@@ -14,12 +10,10 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
 /* =========================================================
    CONFIGURACIÓN GENERAL
 ========================================================= */
+
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
@@ -33,10 +27,35 @@ app.use(
         return callback(null, true);
       }
 
-      return callback(new Error("Origen no permitido por CORS."));
+      return callback(
+        new Error("Origen no permitido por CORS.")
+      );
     },
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+
+    methods: [
+      "GET",
+      "POST",
+      "PUT",
+      "DELETE",
+      "OPTIONS",
+    ],
+
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+    ],
+  })
+);
+
+app.use(
+  express.json({
+    limit: "5mb",
+  })
+);
+
+app.use(
+  express.urlencoded({
+    extended: true,
   })
 );
 
@@ -44,12 +63,21 @@ app.use(
    VARIABLES DE ENTORNO
 ========================================================= */
 
-const EMAIL_USER = process.env.EMAIL_USER;
-const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
-const DOCTOR_EMAIL = process.env.DOCTOR_EMAIL;
+const RESEND_API_KEY =
+  process.env.RESEND_API_KEY?.trim();
 
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+const RESEND_FROM =
+  process.env.RESEND_FROM?.trim() ||
+  "Homeopatía Web <onboarding@resend.dev>";
+
+const DOCTOR_EMAIL =
+  process.env.DOCTOR_EMAIL?.trim();
+
+const ADMIN_EMAIL =
+  process.env.ADMIN_EMAIL;
+
+const ADMIN_PASSWORD =
+  process.env.ADMIN_PASSWORD;
 
 /* =========================================================
    SQLITE
@@ -155,10 +183,14 @@ db.exec(`
 `);
 
 /* =========================================================
-   MIGRACIÓN SEGURA DE BASE EXISTENTE
+   MIGRACIÓN SEGURA
 ========================================================= */
 
-function addColumnIfMissing(table, column, definition) {
+function addColumnIfMissing(
+  table,
+  column,
+  definition
+) {
   const columns = db
     .prepare(`PRAGMA table_info(${table})`)
     .all();
@@ -218,10 +250,11 @@ function createInitialAdmin() {
     return;
   }
 
-  const passwordHash = bcrypt.hashSync(
-    ADMIN_PASSWORD,
-    12
-  );
+  const passwordHash =
+    bcrypt.hashSync(
+      ADMIN_PASSWORD,
+      12
+    );
 
   db.prepare(`
     INSERT INTO admins (
@@ -242,72 +275,194 @@ function createInitialAdmin() {
 createInitialAdmin();
 
 /* =========================================================
-   GMAIL
+   RESEND
 ========================================================= */
 
-let transporter = null;
-
-if (EMAIL_USER && EMAIL_PASSWORD) {
-  transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-  family: 4,
-
-  auth: {
-    user: EMAIL_USER,
-    pass: EMAIL_PASSWORD,
-  },
-
-  tls: {
-    rejectUnauthorized: true,
-  },
-});
-
-  transporter.verify((error) => {
-    if (error) {
-      console.error(
-        "❌ Error conectando Gmail:"
-      );
-
-      console.error(error.message);
-    } else {
-      console.log(
-        "✅ GMAIL CONECTADO CORRECTAMENTE"
-      );
-    }
-  });
-} else {
+if (!RESEND_API_KEY) {
   console.warn(
-    "⚠️ Gmail no está configurado."
+    "⚠️ RESEND_API_KEY no está configurada."
+  );
+} else {
+  console.log(
+    "✅ Resend API configurada."
+  );
+}
+
+if (!DOCTOR_EMAIL) {
+  console.warn(
+    "⚠️ DOCTOR_EMAIL no está configurado."
+  );
+}
+
+console.log(
+  `📨 Remitente configurado: ${RESEND_FROM}`
+);
+
+/* =========================================================
+   ESCAPAR HTML
+========================================================= */
+
+function escapeHtml(value = "") {
+  return String(value).replace(
+    /[&<>"']/g,
+    (character) => {
+      const entities = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;",
+      };
+
+      return entities[character];
+    }
   );
 }
 
 /* =========================================================
-   FUNCIÓN PARA ENVIAR CORREOS
+   FUNCIÓN PARA ENVIAR CORREOS CON RESEND
 ========================================================= */
 
-async function sendEmail(options) {
-  if (!transporter) {
+async function sendEmail(options = {}) {
+  if (!RESEND_API_KEY) {
     console.warn(
-      "⚠️ Correo no enviado: Gmail no está configurado."
+      "⚠️ Correo no enviado: RESEND_API_KEY no está configurada."
     );
 
-    return;
+    return {
+      success: false,
+      reason: "RESEND_API_KEY_MISSING",
+    };
   }
 
+  const recipients = Array.isArray(options.to)
+    ? options.to.filter(Boolean)
+    : [options.to].filter(Boolean);
+
+  if (recipients.length === 0) {
+    console.warn(
+      "⚠️ Correo no enviado: no existe destinatario."
+    );
+
+    return {
+      success: false,
+      reason: "RECIPIENT_MISSING",
+    };
+  }
+
+  const payload = {
+    from: RESEND_FROM,
+
+    to: recipients,
+
+    subject:
+      options.subject ||
+      "Homeopatía Web",
+
+    html:
+      options.html ||
+      options.text ||
+      "",
+  };
+
+  if (options.replyTo) {
+    payload.reply_to =
+      options.replyTo;
+  }
+
+  const controller =
+    new AbortController();
+
+  const timeout = setTimeout(
+    () => controller.abort(),
+    15000
+  );
+
   try {
-    await transporter.sendMail(options);
+    const response = await fetch(
+      "https://api.resend.com/emails",
+      {
+        method: "POST",
+
+        headers: {
+          Authorization:
+            `Bearer ${RESEND_API_KEY}`,
+
+          "Content-Type":
+            "application/json",
+        },
+
+        body:
+          JSON.stringify(payload),
+
+        signal:
+          controller.signal,
+      }
+    );
+
+    const rawResponse =
+      await response.text();
+
+    let result;
+
+    try {
+      result =
+        JSON.parse(rawResponse);
+    } catch {
+      result = {
+        raw: rawResponse,
+      };
+    }
+
+    if (!response.ok) {
+      console.error(
+        "❌ Resend rechazó el correo."
+      );
+
+      console.error(
+        `HTTP ${response.status}`
+      );
+
+      console.error(result);
+
+      return {
+        success: false,
+        status: response.status,
+        result,
+      };
+    }
 
     console.log(
-      `📧 Correo enviado a: ${options.to}`
-    );
-  } catch (error) {
-    console.error(
-      "❌ Error enviando correo:"
+      `📧 Correo enviado correctamente a: ${recipients.join(", ")}`
     );
 
-    console.error(error.message);
+    if (result?.id) {
+      console.log(
+        `🆔 Resend ID: ${result.id}`
+      );
+    }
+
+    return {
+      success: true,
+      id: result?.id || null,
+    };
+
+  } catch (error) {
+    console.error(
+      "❌ Error conectando con Resend:"
+    );
+
+    console.error(
+      error.message
+    );
+
+    return {
+      success: false,
+      reason: error.message,
+    };
+
+  } finally {
+    clearTimeout(timeout);
   }
 }
 
@@ -319,8 +474,10 @@ function cleanExpiredSessions() {
   try {
     db.prepare(`
       DELETE FROM admin_sessions
-      WHERE datetime(expires_at) <= datetime('now')
+      WHERE datetime(expires_at)
+      <= datetime('now')
     `).run();
+
   } catch (error) {
     console.error(
       "❌ Error limpiando sesiones:",
@@ -341,17 +498,16 @@ setInterval(
 ========================================================= */
 
 function createAdminSession(admin) {
-  const token = crypto
-    .randomBytes(48)
-    .toString("hex");
+  const token =
+    crypto
+      .randomBytes(48)
+      .toString("hex");
 
-  /*
-    Sesión válida durante 24 horas.
-  */
-
-  const expiresAt = new Date(
-    Date.now() + 24 * 60 * 60 * 1000
-  ).toISOString();
+  const expiresAt =
+    new Date(
+      Date.now() +
+      24 * 60 * 60 * 1000
+    ).toISOString();
 
   db.prepare(`
     INSERT INTO admin_sessions (
@@ -380,8 +536,8 @@ function getAdminSession(token) {
     return null;
   }
 
-  const session = db
-    .prepare(`
+  const session =
+    db.prepare(`
       SELECT
         id,
         token,
@@ -391,20 +547,29 @@ function getAdminSession(token) {
         expires_at
       FROM admin_sessions
       WHERE token = ?
-        AND datetime(expires_at) > datetime('now')
-    `)
-    .get(token);
+        AND datetime(expires_at)
+        > datetime('now')
+    `).get(token);
 
   if (!session) {
     return null;
   }
 
   return {
-    sessionId: session.id,
-    adminId: session.admin_id,
-    email: session.email,
-    createdAt: session.created_at,
-    expiresAt: session.expires_at,
+    sessionId:
+      session.id,
+
+    adminId:
+      session.admin_id,
+
+    email:
+      session.email,
+
+    createdAt:
+      session.created_at,
+
+    expiresAt:
+      session.expires_at,
   };
 }
 
@@ -412,7 +577,11 @@ function getAdminSession(token) {
    MIDDLEWARE ADMIN
 ========================================================= */
 
-function requireAdmin(req, res, next) {
+function requireAdmin(
+  req,
+  res,
+  next
+) {
   try {
     const authorization =
       req.headers.authorization;
@@ -428,8 +597,11 @@ function requireAdmin(req, res, next) {
     const parts =
       authorization.split(" ");
 
-    const type = parts[0];
-    const token = parts[1];
+    const type =
+      parts[0];
+
+    const token =
+      parts[1];
 
     if (
       type !== "Bearer" ||
@@ -437,7 +609,8 @@ function requireAdmin(req, res, next) {
     ) {
       return res.status(401).json({
         success: false,
-        message: "Token inválido.",
+        message:
+          "Token inválido.",
       });
     }
 
@@ -452,8 +625,11 @@ function requireAdmin(req, res, next) {
       });
     }
 
-    req.admin = session;
-    req.adminToken = token;
+    req.admin =
+      session;
+
+    req.adminToken =
+      token;
 
     next();
 
@@ -476,57 +652,72 @@ function requireAdmin(req, res, next) {
    RUTA PRINCIPAL
 ========================================================= */
 
-app.get("/", (req, res) => {
-  res.json({
-    success: true,
-    message:
-      "Servidor de Homeopatía Web funcionando.",
-  });
-});
+app.get(
+  "/",
+  (req, res) => {
+    res.json({
+      success: true,
+      message:
+        "Servidor de Homeopatía Web funcionando.",
+    });
+  }
+);
 
 /* =========================================================
    STATUS
 ========================================================= */
 
-app.get("/api/status", (req, res) => {
-  let activeSessions = 0;
+app.get(
+  "/api/status",
+  (req, res) => {
+    let activeSessions = 0;
 
-  try {
-    const result = db
-      .prepare(`
-        SELECT COUNT(*) AS total
-        FROM admin_sessions
-        WHERE datetime(expires_at) > datetime('now')
-      `)
-      .get();
+    try {
+      const result =
+        db.prepare(`
+          SELECT COUNT(*) AS total
+          FROM admin_sessions
+          WHERE datetime(expires_at)
+          > datetime('now')
+        `).get();
 
-    activeSessions = result.total;
-  } catch {
-    activeSessions = 0;
+      activeSessions =
+        result.total;
+
+    } catch {
+      activeSessions = 0;
+    }
+
+    res.json({
+      success: true,
+
+      server: "online",
+
+      database: true,
+
+      emailConfigured:
+        Boolean(
+          RESEND_API_KEY &&
+          DOCTOR_EMAIL
+        ),
+
+      emailProvider:
+        "Resend",
+
+      emailSender:
+        RESEND_FROM,
+
+      adminConfigured:
+        Boolean(
+          ADMIN_EMAIL &&
+          ADMIN_PASSWORD
+        ),
+
+      activeAdminSessions:
+        activeSessions,
+    });
   }
-
-  res.json({
-    success: true,
-
-    server: "online",
-
-    database: true,
-
-    emailConfigured: Boolean(
-      EMAIL_USER &&
-      EMAIL_PASSWORD &&
-      DOCTOR_EMAIL
-    ),
-
-    adminConfigured: Boolean(
-      ADMIN_EMAIL &&
-      ADMIN_PASSWORD
-    ),
-
-    activeAdminSessions:
-      activeSessions,
-  });
-});
+);
 
 /* =========================================================
    LOGIN ADMIN
@@ -550,22 +741,25 @@ app.post(
       }
 
       const normalizedEmail =
-        email.trim().toLowerCase();
+        email
+          .trim()
+          .toLowerCase();
 
       console.log(
         `🔐 Intento de login: ${normalizedEmail}`
       );
 
-      const admin = db
-        .prepare(`
+      const admin =
+        db.prepare(`
           SELECT
             id,
             email,
             password_hash
           FROM admins
           WHERE email = ?
-        `)
-        .get(normalizedEmail);
+        `).get(
+          normalizedEmail
+        );
 
       if (!admin) {
         console.log(
@@ -597,18 +791,17 @@ app.post(
         });
       }
 
-      /*
-        Eliminamos sesiones antiguas
-        del mismo administrador.
-      */
-
       db.prepare(`
         DELETE FROM admin_sessions
         WHERE admin_id = ?
-      `).run(admin.id);
+      `).run(
+        admin.id
+      );
 
       const token =
-        createAdminSession(admin);
+        createAdminSession(
+          admin
+        );
 
       console.log(
         `✅ Admin inició sesión: ${admin.email}`
@@ -622,15 +815,15 @@ app.post(
 
         token,
 
-        /*
-          Compatibilidad con versiones
-          anteriores del frontend.
-        */
-        adminToken: token,
+        adminToken:
+          token,
 
         admin: {
-          id: admin.id,
-          email: admin.email,
+          id:
+            admin.id,
+
+          email:
+            admin.email,
         },
       });
 
@@ -662,8 +855,11 @@ app.get(
       success: true,
 
       admin: {
-        id: req.admin.adminId,
-        email: req.admin.email,
+        id:
+          req.admin.adminId,
+
+        email:
+          req.admin.email,
       },
     });
   }
@@ -681,7 +877,9 @@ app.post(
       db.prepare(`
         DELETE FROM admin_sessions
         WHERE token = ?
-      `).run(req.adminToken);
+      `).run(
+        req.adminToken
+      );
 
       console.log(
         `👋 Admin cerró sesión: ${req.admin.email}`
@@ -925,8 +1123,13 @@ app.put(
   requireAdmin,
   (req, res) => {
     try {
-      const { id } = req.params;
-      const { status } = req.body;
+      const {
+        id,
+      } = req.params;
+
+      const {
+        status,
+      } = req.body;
 
       const validStatuses = [
         "Pendiente",
@@ -936,7 +1139,9 @@ app.put(
       ];
 
       if (
-        !validStatuses.includes(status)
+        !validStatuses.includes(
+          status
+        )
       ) {
         return res.status(400).json({
           success: false,
@@ -950,9 +1155,14 @@ app.put(
           UPDATE bookings
           SET status = ?
           WHERE id = ?
-        `).run(status, id);
+        `).run(
+          status,
+          id
+        );
 
-      if (result.changes === 0) {
+      if (
+        result.changes === 0
+      ) {
         return res.status(404).json({
           success: false,
           message:
@@ -987,8 +1197,13 @@ app.put(
   requireAdmin,
   (req, res) => {
     try {
-      const { id } = req.params;
-      const { status } = req.body;
+      const {
+        id,
+      } = req.params;
+
+      const {
+        status,
+      } = req.body;
 
       const validStatuses = [
         "Pendiente",
@@ -1000,7 +1215,9 @@ app.put(
       ];
 
       if (
-        !validStatuses.includes(status)
+        !validStatuses.includes(
+          status
+        )
       ) {
         return res.status(400).json({
           success: false,
@@ -1014,9 +1231,14 @@ app.put(
           UPDATE treatment_requests
           SET status = ?
           WHERE id = ?
-        `).run(status, id);
+        `).run(
+          status,
+          id
+        );
 
-      if (result.changes === 0) {
+      if (
+        result.changes === 0
+      ) {
         return res.status(404).json({
           success: false,
           message:
@@ -1051,8 +1273,13 @@ app.put(
   requireAdmin,
   (req, res) => {
     try {
-      const { id } = req.params;
-      const { status } = req.body;
+      const {
+        id,
+      } = req.params;
+
+      const {
+        status,
+      } = req.body;
 
       const validStatuses = [
         "Pendiente",
@@ -1065,7 +1292,9 @@ app.put(
       ];
 
       if (
-        !validStatuses.includes(status)
+        !validStatuses.includes(
+          status
+        )
       ) {
         return res.status(400).json({
           success: false,
@@ -1079,9 +1308,14 @@ app.put(
           UPDATE treatment_requests
           SET status = ?
           WHERE id = ?
-        `).run(status, id);
+        `).run(
+          status,
+          id
+        );
 
-      if (result.changes === 0) {
+      if (
+        result.changes === 0
+      ) {
         return res.status(404).json({
           success: false,
           message:
@@ -1116,7 +1350,9 @@ app.delete(
   requireAdmin,
   (req, res) => {
     try {
-      const { id } = req.params;
+      const {
+        id,
+      } = req.params;
 
       const result =
         db.prepare(`
@@ -1124,7 +1360,9 @@ app.delete(
           WHERE id = ?
         `).run(id);
 
-      if (result.changes === 0) {
+      if (
+        result.changes === 0
+      ) {
         return res.status(404).json({
           success: false,
           message:
@@ -1159,7 +1397,9 @@ app.delete(
   requireAdmin,
   (req, res) => {
     try {
-      const { id } = req.params;
+      const {
+        id,
+      } = req.params;
 
       const result =
         db.prepare(`
@@ -1167,7 +1407,9 @@ app.delete(
           WHERE id = ?
         `).run(id);
 
-      if (result.changes === 0) {
+      if (
+        result.changes === 0
+      ) {
         return res.status(404).json({
           success: false,
           message:
@@ -1263,12 +1505,39 @@ app.post(
         id: bookingId,
       });
 
-      /* CORREO AL DOCTOR */
+      /* =====================================================
+         DATOS SEGUROS PARA HTML
+      ===================================================== */
 
-      sendEmail({
-        from:
-          `"Página Web" <${EMAIL_USER}>`,
+      const safeName =
+        escapeHtml(name);
 
+      const safeEmail =
+        escapeHtml(email);
+
+      const safePhone =
+        escapeHtml(phone);
+
+      const safeType =
+        escapeHtml(type);
+
+      const safeDate =
+        escapeHtml(date);
+
+      const safeTime =
+        escapeHtml(time);
+
+      const safeModality =
+        escapeHtml(modality);
+
+      const safeMessage =
+        escapeHtml(message || "");
+
+      /* =====================================================
+         CORREO AL DOCTOR
+      ===================================================== */
+
+      void sendEmail({
         to: DOCTOR_EMAIL,
 
         replyTo: email,
@@ -1299,37 +1568,37 @@ app.post(
 
             <p>
               <strong>Nombre:</strong>
-              ${name}
+              ${safeName}
             </p>
 
             <p>
               <strong>Correo:</strong>
-              ${email}
+              ${safeEmail}
             </p>
 
             <p>
               <strong>Teléfono:</strong>
-              ${phone}
+              ${safePhone}
             </p>
 
             <p>
               <strong>Tipo:</strong>
-              ${type}
+              ${safeType}
             </p>
 
             <p>
               <strong>Fecha:</strong>
-              ${date}
+              ${safeDate}
             </p>
 
             <p>
               <strong>Horario:</strong>
-              ${time}
+              ${safeTime}
             </p>
 
             <p>
               <strong>Modalidad:</strong>
-              ${modality}
+              ${safeModality}
             </p>
 
             ${
@@ -1340,7 +1609,7 @@ app.post(
                   </h3>
 
                   <p>
-                    ${message}
+                    ${safeMessage}
                   </p>
                 `
                 : ""
@@ -1350,12 +1619,11 @@ app.post(
         `,
       });
 
-      /* CORREO AL PACIENTE */
+      /* =====================================================
+         CORREO AL PACIENTE
+      ===================================================== */
 
-      sendEmail({
-        from:
-          `"Dr. Alejandro Adame Cafuentes" <${EMAIL_USER}>`,
-
+      void sendEmail({
         to: email,
 
         subject:
@@ -1370,7 +1638,7 @@ app.post(
           ">
 
             <h2>
-              Gracias, ${name}.
+              Gracias, ${safeName}.
             </h2>
 
             <p>
@@ -1380,22 +1648,22 @@ app.post(
 
             <p>
               <strong>Tipo:</strong>
-              ${type}
+              ${safeType}
             </p>
 
             <p>
               <strong>Fecha:</strong>
-              ${date}
+              ${safeDate}
             </p>
 
             <p>
               <strong>Horario:</strong>
-              ${time}
+              ${safeTime}
             </p>
 
             <p>
               <strong>Modalidad:</strong>
-              ${modality}
+              ${safeModality}
             </p>
 
             <p>
@@ -1480,10 +1748,15 @@ app.post(
       }
 
       const parsedQuantity =
-        Number.parseInt(quantity, 10);
+        Number.parseInt(
+          quantity,
+          10
+        );
 
       const safeQuantity =
-        Number.isFinite(parsedQuantity) &&
+        Number.isFinite(
+          parsedQuantity
+        ) &&
         parsedQuantity > 0
           ? parsedQuantity
           : 1;
@@ -1533,12 +1806,48 @@ app.post(
         id: treatmentId,
       });
 
-      /* CORREO AL DOCTOR */
+      /* =====================================================
+         DATOS SEGUROS
+      ===================================================== */
 
-      sendEmail({
-        from:
-          `"Página Web" <${EMAIL_USER}>`,
+      const safeName =
+        escapeHtml(name);
 
+      const safeEmail =
+        escapeHtml(email);
+
+      const safePhone =
+        escapeHtml(phone);
+
+      const safeTreatment =
+        escapeHtml(treatment);
+
+      const safeDelivery =
+        escapeHtml(delivery);
+
+      const safeAddress =
+        escapeHtml(address);
+
+      const safeCity =
+        escapeHtml(city);
+
+      const safeState =
+        escapeHtml(state);
+
+      const safeCountry =
+        escapeHtml(country);
+
+      const safePostalCode =
+        escapeHtml(postalCode);
+
+      const safeMessage =
+        escapeHtml(message || "");
+
+      /* =====================================================
+         CORREO AL DOCTOR
+      ===================================================== */
+
+      void sendEmail({
         to: DOCTOR_EMAIL,
 
         replyTo: email,
@@ -1564,22 +1873,22 @@ app.post(
 
             <p>
               <strong>Nombre:</strong>
-              ${name}
+              ${safeName}
             </p>
 
             <p>
               <strong>Correo:</strong>
-              ${email}
+              ${safeEmail}
             </p>
 
             <p>
               <strong>Teléfono:</strong>
-              ${phone}
+              ${safePhone}
             </p>
 
             <p>
               <strong>Tratamiento:</strong>
-              ${treatment}
+              ${safeTreatment}
             </p>
 
             <p>
@@ -1593,32 +1902,32 @@ app.post(
 
             <p>
               <strong>Entrega:</strong>
-              ${delivery}
+              ${safeDelivery}
             </p>
 
             <p>
               <strong>Dirección:</strong>
-              ${address}
+              ${safeAddress}
             </p>
 
             <p>
               <strong>Ciudad:</strong>
-              ${city}
+              ${safeCity}
             </p>
 
             <p>
               <strong>Estado:</strong>
-              ${state}
+              ${safeState}
             </p>
 
             <p>
               <strong>País:</strong>
-              ${country}
+              ${safeCountry}
             </p>
 
             <p>
               <strong>Código postal:</strong>
-              ${postalCode}
+              ${safePostalCode}
             </p>
 
             ${
@@ -1629,7 +1938,7 @@ app.post(
                   </h3>
 
                   <p>
-                    ${message}
+                    ${safeMessage}
                   </p>
                 `
                 : ""
@@ -1639,12 +1948,11 @@ app.post(
         `,
       });
 
-      /* CORREO AL SOLICITANTE */
+      /* =====================================================
+         CORREO AL SOLICITANTE
+      ===================================================== */
 
-      sendEmail({
-        from:
-          `"Dr. Alejandro Adame Cafuentes" <${EMAIL_USER}>`,
-
+      void sendEmail({
         to: email,
 
         subject:
@@ -1663,7 +1971,7 @@ app.post(
             </h2>
 
             <p>
-              Hola ${name}.
+              Hola ${safeName}.
             </p>
 
             <p>
@@ -1675,7 +1983,7 @@ app.post(
               <strong>
                 Tratamiento:
               </strong>
-              ${treatment}
+              ${safeTreatment}
             </p>
 
             <p>
@@ -1689,14 +1997,16 @@ app.post(
               <strong>
                 Entrega:
               </strong>
-              ${delivery}
+              ${safeDelivery}
             </p>
 
             <p>
               <strong>
                 Destino:
               </strong>
-              ${city}, ${state}, ${country}
+              ${safeCity},
+              ${safeState},
+              ${safeCountry}
             </p>
 
             <p>
@@ -1747,20 +2057,27 @@ app.post(
    404
 ========================================================= */
 
-app.use((req, res) => {
-  res.status(404).json({
-    success: false,
-    message:
-      `Ruta no encontrada: ${req.method} ${req.originalUrl}`,
-  });
-});
+app.use(
+  (req, res) => {
+    res.status(404).json({
+      success: false,
+      message:
+        `Ruta no encontrada: ${req.method} ${req.originalUrl}`,
+    });
+  }
+);
 
 /* =========================================================
    MANEJO DE ERRORES
 ========================================================= */
 
 app.use(
-  (error, req, res, next) => {
+  (
+    error,
+    req,
+    res,
+    next
+  ) => {
     console.error(
       "❌ ERROR GENERAL:"
     );
@@ -1807,6 +2124,9 @@ app.listen(
     );
     console.log(
       " SESIONES SQLITE ACTIVAS"
+    );
+    console.log(
+      " EMAIL: RESEND API"
     );
     console.log(
       "========================================"
