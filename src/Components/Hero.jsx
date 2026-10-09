@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./Hero.css";
-import fotoHomeopata2 from "../assets/foto homeopata 2.jpg";
+import fotoHomeopata1 from "../assets/foto homeopata 1.jpg";
 
 function Hero() {
   return (
@@ -51,7 +51,7 @@ function Hero() {
         <div className="hero-photo">
 
           <img
-            src={fotoHomeopata2}
+            src={fotoHomeopata1}
             alt="Dr. Alejandro Adame Cafuentes durante una consulta de homeopatía"
           />
 

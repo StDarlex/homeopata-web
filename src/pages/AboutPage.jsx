@@ -1,5 +1,5 @@
 import "./AboutPage.css";
-import fotoHomeopata1 from "../assets/foto homeopata 1.jpg";
+import fotoHomeopata2 from "../assets/foto homeopata 2.jpg";
 
 function AboutPage() {
   return (
@@ -35,7 +35,7 @@ function AboutPage() {
         <div className="about-hero-image">
 
           <img
-            src={fotoHomeopata1}
+            src={fotoHomeopata2}
             alt="Dr. Alejandro Adame Cafuentes"
           />
 
