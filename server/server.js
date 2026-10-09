@@ -14,9 +14,13 @@ const PORT = process.env.PORT || 3000;
    CONFIGURACIÓN GENERAL
 ========================================================= */
 
+
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
+  "https://homeopatiaatualcance.com",
+  "https://www.homeopatiaatualcance.com",
+  "https://homeopata-web.vercel.app",
   process.env.FRONTEND_URL,
 ].filter(Boolean);
 
